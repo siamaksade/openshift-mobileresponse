@@ -27,4 +27,6 @@ An AngularJS app that directly calls [Mobile Response APIs](http://mobilerespons
 	git push
 	```
 
-2. Browse to http://mobileresponsedemo-[yourdomain].rhcloud.com/#/navigation/+46731111111
+2. Browse to
+
+ http://mobileresponsedemo-[yourdomain].rhcloud.com/#/navigation/+46731111111
