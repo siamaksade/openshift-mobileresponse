@@ -1,0 +1,182 @@
+﻿<div ng-controller="NavigationController">
+    <div ng-show="isAuthenticated">
+        <accordion>
+
+            <accordion-group heading="Bokning av byte eller lagning">
+                <form ng-model="bookingForm" ng-submit="submitBooking(bookingVRN, bookingEmail, bookingDate, bookingLocation);" role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <div>Vänligen ange ditt registreringsnummer och emailadress för snabbare hantering</div>
+                        <div>
+                            <label>Registreringsnummer</label>
+                            <input type="text" class="form-control" ng-model="bookingVRN" name="bookingVRN" required />
+
+                            <label>Email</label>
+                            <input type="text" class="form-control" ng-model="bookingEmail" name="bookingEmail" required />
+                        </div>
+                        <div>
+                            <label>Önskat datum</label>
+                            <datepicker ng-model="bookingDate" datepicker-options="dateOptions" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                        </div>
+                        <div>
+                            <label>Plats</label>
+                            <select ng-model="bookingLocation">
+                                <option ng-repeat="location in bookingLocations">{{ location }}</option>
+                            </select>
+                        </div>
+                        <div>
+                            <input type="submit" ng-disabled="bookingForm.$invalid" class="btn btn-primary" value="Fortsätt" />
+                        </div>
+                    </div>
+                    <div class="slide-animate-container">
+                        <div class="slide-animate" ng-include="bookingResponse"></div>
+                    </div>
+                </form>
+            </accordion-group>
+
+            <accordion-group heading="Prisförfrågan">
+                <form ng-model="priceForm" ng-submit="submitPrice(priceVRN, priceEmail);" role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <p>Vänligen ange ditt registreringsnummer och emailadress för snabbare hantering</p>
+                        <p>
+                            <label>Registreringsnummer</label>
+                            <input type="text" class="form-control" ng-model="priceVRN" name="priceVRN" required />
+
+                            <label>Email</label>
+                            <input type="text" class="form-control" ng-model="priceEmail" name="priceEmail" required />
+                        </p>
+                        <p>
+                            <input type="submit" ng-disabled="priceForm.$invalid" class="btn btn-primary" value="Fortsätt" />
+                        </p>
+                    </div>
+                    <div class="slide-animate-container">
+                        <div class="slide-animate" ng-include="priceResponse"></div>
+                    </div>
+                </form>
+            </accordion-group>
+
+            <accordion-group heading="Ombokning av tid">
+                <form ng-model="rescheduleForm" ng-submit="submitReschedule(rescheduleVRN, rescheduleDate,rescheduleTime);" role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <p>Vänligen ange ditt registreringsnummer</p>
+                        <p>
+                            <label>Registreringsnummer</label>
+                            <input type="text" class="form-control" ng-model="rescheduleVRN" name="rescheduleVRN" required />
+                        </p>
+                        <p>
+                            <label>Välj nytt datumt</label>
+                            <datepicker ng-model="rescheduleDate" min-date="minDate" show-weeks="true" class="well well-sm"></datepicker>
+                        </p>
+                        <p>
+                            <label>Välj ny tid</label>
+                            <timepicker ng-model="rescheduleTime" ng-change="" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></timepicker>
+                        </p>
+                        <p>
+                            <input type="submit" ng-disabled="rescheduleForm.$invalid" class="btn btn-primary" value="Fortsätt" />
+                        </p>
+                    </div>
+                    <div class="slide-animate-container">
+                        <div class="slide-animate" ng-include="rescheduleResponse"></div>
+                    </div>
+                </form>
+            </accordion-group>
+
+            <accordion-group heading="Ytterligare frågor">
+                <form ng-model="additionalForm" ng-submit="submitAdditionalQuestion(additionalQuestionVRN, additionalQuestion);" role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <p>Vänligen ange ditt registreringsnummer och din fråga</p>
+                        <p>
+                            <label>Registreringsnummer</label>
+                            <input type="text" class="form-control" ng-model="additionalQuestionVRN" name="additionalQuestionVRN" required />
+                        </p>
+                        <p>
+                            <label>Fråga</label>
+                            <textarea class="form-control" ng-model="additionalQuestion" name="additionalQuestion" required></textarea>
+                        </p>
+                        <p>
+                            <input type="submit" ng-disabled="additionalForm.$invalid" class="btn btn-primary" value="Fortsätt" />
+                        </p>
+                    </div>
+                    <div class="slide-animate-container">
+                        <div class="slide-animate" ng-include="additionalQuestionResponse"></div>
+                    </div>
+                </form>
+            </accordion-group>
+
+            <accordion-group heading="Fakturafråga">
+                <form ng-model="invoiceForm" ng-submit="submitInvoiceQuestion(invoiceVRN, invoiceQuestion);" role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <p>
+                            <b>Hur ska jag betala, det finns inget OCR nummer?</b><br/>
+                            Vi har inga OCR nummer, om du använder internet bank väljer du ”meddelande” istället för OCR. Där fyller du sedan i fakturanummer som står längst ner till vänster på fakturan och ditt reg nr.
+                        </p>
+                        <p>Har du en annan fråga ang din faktura eller betalning?</p>
+                        <p>
+                            <label>Registreringsnummer</label>
+                            <input type="text" class="form-control" ng-model="invoiceVRN" name="invoiceVRN" required />
+                        </p>
+                        <p>
+                            <label>Beskriv kortfattat vad ditt ärende gäller</label>
+                            <textarea class="form-control" ng-model="invoiceQuestion" name="invoiceQuestion" required></textarea>
+                        </p>
+                        <p>
+                            <input type="submit" ng-disabled="invoiceForm.$invalid" class="btn btn-primary" value="Fortsätt" />
+                        </p>
+                    </div>
+                    <div class="slide-animate-container">
+                        <div class="slide-animate" ng-include="invoiceQuestionResponse"></div>
+                    </div>
+                </form>
+            </accordion-group>
+
+            <accordion-group heading="Reklamation">
+                <form ng-model="claimForm" ng-submit="submitClaimQuestion(claimVRN, claimQuestion);" role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <p>Vänligen ange ditt registreringsnummer</p>
+                        <p>
+                            <label>Registreringsnummer</label>
+                            <input type="text" class="form-control" ng-model="claimVRN" name="claimVRN" required />
+                        </p>
+                        <p>
+                            <label>Vänligen ange vad som hänt</label>
+                            <textarea class="form-control" ng-model="claimQuestion" name="claimQuestion" required></textarea>
+                        </p>
+                        <p>
+                            <input type="submit" ng-disabled="claimForm.$invalid" class="btn btn-primary" value="Fortsätt" />
+                        </p>
+                    </div>
+                    <div class="slide-animate-container">
+                        <div class="slide-animate" ng-include="claimQuestionResponse"></div>
+                    </div>
+                </form>
+            </accordion-group>
+
+            <accordion-group heading="Övriga frågor">
+                <form ng-model="otherForm" ng-submit="submitOtherQuestion(otherVRN, otherQuestion);" role="form" class="form-horizontal">
+                    <div class="form-group">
+                        <p>Vänligen ange ditt registreringsnummer och din fråga</p>
+                        <p>
+                            <label>Registreringsnummer</label>
+                            <input type="text" class="form-control" ng-model="otherVRN" name="otherVRN" required />
+                        </p>
+                        <p>
+                            <label>Beskriv kortfattat vad ditt ärende gäller</label>
+                            <textarea class="form-control" ng-model="otherQuestion" name="otherQuestion" required></textarea>
+                        </p>
+                        <p>
+                            <input type="submit" ng-disabled="otherForm.$invalid" class="btn btn-primary" value="Fortsätt" />
+                        </p>
+                    </div>
+                    <div class="slide-animate-container">
+                        <div class="slide-animate" ng-include="otherQuestionResponse"></div>
+                    </div>
+                </form>
+            </accordion-group>
+        </accordion>
+
+    </div>
+    <div ng-show="!isAuthenticated">
+        <a class="btn btn-primary" href="#/{{ visitorNumber }}">Logga in igen</a>
+    </div>
+</div>
+
+

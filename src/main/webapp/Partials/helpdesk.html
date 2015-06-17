@@ -1,0 +1,117 @@
+﻿<div ng-controller="HelpdeskController" ng-init="findVisitor(phoneNumber)">
+    <form ng-submit="findVisitor(phoneNumber)" class="form-horizontal" role="form">
+        <p>
+            <label>Sök besökare (mobilnummer med landskod, tex +46707123456)</label>
+            <input type="text" ng-model="phoneNumber" class="form-control" />
+        </p>
+        <p>
+            <input type="submit" class="btn btn-primary" value="Sök" />
+        </p>
+    </form>
+
+    <div>
+        <alert ng-show="info != null" class="{{ info.type }}">{{ info.msg }}</alert>
+
+        <div ng-show="visitor != null">
+            <p>
+                <label>Senaste besök:</label>
+                {{ visitor.metaData.lastvisit }}
+            </p>
+
+            <h2 ng-show="area">{{ area }}</h2>
+
+            <div ng-show="visitor.metaData.lastsubmit == 'booking'">
+                <p>
+                    <label>VRN:</label>
+                    <span>{{ visitor.metaData.vrn }}</span>
+                </p>
+                <p>
+                    <label>Email:</label>
+                    <span>{{ visitor.metaData.email }}</span>
+                </p>
+                <p>
+                    <label>Önskat datum:</label>
+                    <span>{{ visitor.metaData.bookingdate }}</span>
+                </p>
+                <p>
+                    <label>Plats:</label>
+                    <span>{{ visitor.metaData.bookinglocation }}</span>
+                </p>
+            </div>
+
+            <div ng-show="visitor.metaData.lastsubmit == 'price'">
+                <p>
+                    <label>VRN:</label>
+                    <span>{{ visitor.metaData.vrn }}</span>
+                </p>
+                <p>
+                    <label>Email:</label>
+                    <span>{{ visitor.metaData.email }}</span>
+                </p>
+            </div>
+
+            <div ng-show="visitor.metaData.lastsubmit == 'reschedule'">
+                <p>
+                    <label>VRN:</label>
+                    <span>{{ visitor.metaData.vrn }}</span>
+                </p>
+                <p>
+                    <label>Önskat datum:</label>
+                    <span>{{ visitor.metaData.rescheduledate }}</span>
+                </p>
+                <p>
+                    <label>Önskad tid:</label>
+                    <span>{{ visitor.metaData.rescheduletime }}</span>
+                </p>
+            </div>
+
+            <div ng-show="visitor.metaData.lastsubmit == 'additionalquestion'">
+                <p>
+                    <label>VRN:</label>
+                    <span>{{ visitor.metaData.vrn }}</span>
+                </p>
+                <p>
+                    <label>Fråga:</label>
+                    <span>{{ visitor.metaData.additionalquestion }}</span>
+                </p>
+            </div>
+
+            <div ng-show="visitor.metaData.lastsubmit == 'invoicequestion'">
+                <p>
+                    <label>VRN:</label>
+                    <span>{{ visitor.metaData.vrn }}</span>
+                </p>
+                <p>
+                    <label>Fråga:</label>
+                    <span>{{ visitor.metaData.invoicequestion }}</span>
+                </p>
+            </div>
+
+            <div ng-show="visitor.metaData.lastsubmit == 'claimquestion'">
+                <p>
+                    <label>VRN:</label>
+                    <span>{{ visitor.metaData.vrn }}</span>
+                </p>
+                <p>
+                    <label>Fråga:</label>
+                    <span>{{ visitor.metaData.claimquestion }}</span>
+                </p>
+            </div>
+
+            <div ng-show="visitor.metaData.lastsubmit == 'otherquestion'">
+                <p>
+                    <label>VRN:</label>
+                    <span>{{ visitor.metaData.vrn }}</span>
+                </p>
+                <p>
+                    <label>Fråga:</label>
+                    <span>{{ visitor.metaData.otherquestion }}</span>
+                </p>
+            </div>
+            
+            <hr/>
+            <div ng-show="visitor != null">{{ visitor }}</div>
+
+        </div>
+    </div>
+</div>

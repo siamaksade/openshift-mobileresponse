@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Mobile Response Demo - Chat</title>
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+    
+    <div class="header">
+        <img src="images/logo.png" border="0" />
+    </div>
+
+    <!-- begin SnapEngage code -->
+    <script type="text/javascript">
+
+        function getURIParameter(param, asArray) {
+            return document.location.search.substring(1).split('&').reduce(function (p, c) {
+                var parts = c.split('=', 2).map(function (param) { return decodeURIComponent(param); });
+                if (parts.length == 0 || parts[0] != param) return (p instanceof Array) && !asArray ? null : p;
+                return asArray ? p.concat(parts.concat(true)[1]) : parts.concat(true)[1];
+            }, []);
+        }
+        
+        function sendToChat() {
+            var success = false;
+            var tid;
+            success = SnapEngage.sendTextToChat(textToSend);
+
+            if (!success) {
+                clearTimeout(tid);
+                tid = setTimeout(sendToChat, 5000); // Try again every 5 seconds until success.
+                console.log('[FAIL]' + textToSend);
+            }
+            else {
+                console.log('[SUCCESS] Text sent:  ' + textToSend);
+            }
+        };
+
+        var textToSend;
+        var phoneNumber;
+
+        (function () {
+            var se = document.createElement('script'); se.type = 'text/javascript'; se.async = true;
+            se.src = '//storage.googleapis.com/code.snapengage.com/js/4726717d-6996-49e8-b55d-32faba9a4f23.js';
+            var done = false;
+            se.onload = se.onreadystatechange = function () {
+                if (!done && (!this.readyState || this.readyState === 'loaded' || this.readyState === 'complete')) {
+                    done = true;
+
+                    // get the phoneNumber from url
+                    phoneNumber = getURIParameter("phoneNumber");
+
+                    /* Place your SnapEngage JS API code below */
+                    var startLinkResponse = SnapEngage.startLink();
+                    console.log('startLink: ' + startLinkResponse);
+                    var baseUrl = window.location.href.substr(0, window.location.href.indexOf('chat.html'));
+                    textToSend = "[Express] Helpdesk: " + baseUrl + "#/helpdesk/" + phoneNumber + "     ";
+                    sendToChat(textToSend);
+                }
+            };
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(se, s);
+        })();
+    </script>
+    <!-- end SnapEngage code -->
+</body>
+</html>

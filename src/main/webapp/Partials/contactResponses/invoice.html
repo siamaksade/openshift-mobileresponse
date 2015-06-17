@@ -1,0 +1,17 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title">Tack, vi har sparat dina uppgifter. </h3>
+    </div>
+    <div class="panel-body">
+        <p>
+            Vad vill du göra nu?
+        </p>       
+        <p>
+            <a ng-click="sendEmail(visitorNumber,'ekonomi')" class="btn btn-primary">
+                <span class="glyphicon glyphicon-phone" aria-hidden="true"></span>
+                Skicka e-post till ekonomiavdelningen
+            </a>
+        </p>
+        <div ng-if="contactResponseMessage != null">{{ contactResponseMessage }}</div>
+    </div>
+</div>
