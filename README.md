@@ -1,3 +1,5 @@
-The OpenShift `jbosseap` cartridge documentation can be found at:
+# Demo Application on OpenShift using Mobile Response APIs 
 
-http://openshift.github.io/documentation/oo_cartridge_guide.html#jbosseap
+An AngularJS app that directly calls [Mobile Response APIs](http://mobileresponse.com/) for creating units. 
+
+
